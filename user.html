@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <title>SuperMark Accounts</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="heading">
+            <img class="comLogo" src="Assets/complogo.jpeg" alt="Company Logo">
+        </div>
+        <div class="nav">
+            <div class="clickable" id="AddItem">
+                ADD ITEM
+            </div>
+            <div class="clickable" id="AddSale" onclick="addTransaction('sale')">
+                ADD SALE
+            </div>
+            <div class="clickable" id="AddRefund" onclick="addTransaction('refund')">
+                ADD REFUND
+            </div>
+            <div class="clickable" id="FinancialReport" onclick="generateFinancialReport()">
+                FINANCIAL REPORT
+            </div>
+            <div class="clickable" id="SeeInventory" onclick="fetchInventoryDetails()">
+                SEE INVENTORY
+            </div>
+        </div>
+        <br>
+        <div class="viewArea">
+            <div class="additemmodule">
+                <form action="POST">
+                    <legend>ADD ITEMS</legend>
+                    <hr>
+                    <text>Item ID : </text>
+                    <input type="text">
+                    <text>Item Name : </text>
+                    <input type="text">
+                    <text>Item Quantity : </text>
+                    <input type="text">
+                    <text>Item Price : </text>
+                    <input type="text">
+                    <text>Total Price : </text>
+                    <div id="valueAdded"></div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="viewArea">
+            <div class="addsalemodule">
+                <form action="POST">
+                    <legend>ADD SALE</legend>
+                    <hr>
+                    <text>Item ID : </text>
+                    <input type="text">
+                    <text>Item Name : </text>
+                    <div id="itemNameSale"></div>
+                    <br>
+                    <text>Item Quantity : </text>
+                    <input type="text">
+                    <text>Total Price : </text>
+                    <div id="valueAdded"></div>
+                    <br>
+                    <div>
+                        CONFIRM DETAILS
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="viewArea">
+            <div class="addrefundmodule">
+                <form action="POST">
+                    <legend>ADD REFUND</legend>
+                    <hr>
+                    <text>Item ID : </text>
+                    <input type="text">
+                    <text>Item Name : </text>
+                    <input type="text">
+                    <text>Item Quantity : </text>
+                    <input type="text">
+                    <text>Item Price : </text>
+                    <input type="text">
+                    <text>Total Price : </text>
+                    <div id="valueAdded"></div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="viewArea">
+            <div class="financialreportmodule">
+                <form action="POST">
+                    <legend>ADD ITEMS</legend>
+                    <hr>
+                    <text>Item ID : </text>
+                    <input type="text">
+                    <text>Item Name : </text>
+                    <input type="text">
+                    <text>Item Quantity : </text>
+                    <input type="text">
+                    <text>Item Price : </text>
+                    <input type="text">
+                    <text>Total Price : </text>
+                    <div id="valueAdded"></div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="viewArea">
+            <div class="seeinventorymodule">
+                <form action="POST">
+                    <legend>ADD ITEMS</legend>
+                    <hr>
+                    <text>Item ID : </text>
+                    <input type="text">
+                    <text>Item Name : </text>
+                    <input type="text">
+                    <text>Item Quantity : </text>
+                    <input type="text">
+                    <text>Item Price : </text>
+                    <input type="text">
+                    <text>Total Price : </text>
+                    <div id="valueAdded"></div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
