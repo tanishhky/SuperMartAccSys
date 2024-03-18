@@ -3,11 +3,16 @@
         <title>SuperMark Accounts</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body>
+    <body background="Assets/img/bg.jpeg">
         <div class="heading">
-            <img class="comLogo" src="Assets/complogo.jpeg" alt="Company Logo">
+            <div id="super">
+                Super
+            </div>
+            <div class="mark">
+                Mark
+            </div>
         </div>
-        <div class="nav">
+        <nav>
             <div class="clickable" id="AddItem">
                 ADD ITEM
             </div>
@@ -23,104 +28,124 @@
             <div class="clickable" id="SeeInventory" onclick="fetchInventoryDetails()">
                 SEE INVENTORY
             </div>
-        </div>
+        </nav>
         <br>
         <div class="viewArea">
-            <div class="additemmodule">
-                <form action="POST">
+            <div class="genMods" id="additemmodule">
+                <div class="form">
                     <legend>ADD ITEMS</legend>
                     <hr>
+                    <br>
                     <text>Item ID : </text>
                     <input type="text">
+                    <br>
+                    <br>
                     <text>Item Name : </text>
                     <input type="text">
+                    <br><br>
                     <text>Item Quantity : </text>
                     <input type="text">
+                    <br><br>
                     <text>Item Price : </text>
                     <input type="text">
+                    <br><br>
                     <text>Total Price : </text>
                     <div id="valueAdded"></div>
-                </form>
+                    <br><br>
+                    <div id="addInventoryItems" class="submitbtn">
+                        ADD ITEMS
+                    </div>
+                </div>
             </div>
         </div>
         <br>
         <div class="viewArea">
-            <div class="addsalemodule">
-                <form action="POST">
+            <div class="genMods" id="addsalemodule">
+                <div class="form">
                     <legend>ADD SALE</legend>
                     <hr>
+                    <br>
                     <text>Item ID : </text>
                     <input type="text">
+                    <br>
+                    <br>
                     <text>Item Name : </text>
                     <div id="itemNameSale"></div>
-                    <br>
+                    <br><br>
                     <text>Item Quantity : </text>
                     <input type="text">
+                    <br><br>
                     <text>Total Price : </text>
                     <div id="valueAdded"></div>
-                    <br>
-                    <div>
-                        CONFIRM DETAILS
+                    <br><br>
+                    <div class="submitbtn" id="purchaseConfirm" onclick="addToCart()">
+                        ADD TO CART
                     </div>
                     
-                </form>
+                </div>
             </div>
         </div>
         <br>
         <div class="viewArea">
-            <div class="addrefundmodule">
-                <form action="POST">
+            <div class="genMods" id="addrefundmodule">
+                <div class="form">
                     <legend>ADD REFUND</legend>
                     <hr>
+                    <br>
+                    <text>BILL ID : </text>
+                    <input type="text">
+                    <br><br>
                     <text>Item ID : </text>
                     <input type="text">
-                    <text>Item Name : </text>
+                    <br><br>
+                    <text>Refund Item Quantity : </text>
                     <input type="text">
-                    <text>Item Quantity : </text>
-                    <input type="text">
-                    <text>Item Price : </text>
-                    <input type="text">
-                    <text>Total Price : </text>
-                    <div id="valueAdded"></div>
-                </form>
+                    <br><br>
+                    <text>Total Refund Amount : </text>
+                    <div id="valueRefunded"></div>
+                    <br>
+                    <div class="submitbtn" id="refundConfirm" onclick="refundIssue()">
+                        ISSUE REFUND
+                    </div>
+                </div>
             </div>
         </div>
         <br>
         <div class="viewArea">
-            <div class="financialreportmodule">
-                <form action="POST">
-                    <legend>ADD ITEMS</legend>
+            <div class="genMods" id="financialreportmodule">
+                <div class="form">
+                    <legend>GENERATE FINANCIAL REPORT</legend>
                     <hr>
-                    <text>Item ID : </text>
-                    <input type="text">
-                    <text>Item Name : </text>
-                    <input type="text">
-                    <text>Item Quantity : </text>
-                    <input type="text">
-                    <text>Item Price : </text>
-                    <input type="text">
-                    <text>Total Price : </text>
-                    <div id="valueAdded"></div>
-                </form>
+                    <br>
+                    <text>Starting Date : </text>
+                    <input type="date" id="finStartDate">
+                    <br>
+                    <br>
+                    <text>Ending Date : </text>
+                    <input type="date" id="finEndDate">
+                    <br>
+                    <br>
+                    <br>
+                    <div class="submitbtn" id="generatereportbtn" onclick="fetchFinancialReport()">
+                        GENERATE REPORT
+                    </div>
+                    <div id="displayReport">
+
+                    </div>
+                </div>
             </div>
         </div>
         <br>
         <div class="viewArea">
-            <div class="seeinventorymodule">
-                <form action="POST">
-                    <legend>ADD ITEMS</legend>
+            <div class="genMods" id="seeinventorymodule">
+                <div class="form">
+                    <legend>INVENTORY STATUS</legend>
                     <hr>
-                    <text>Item ID : </text>
-                    <input type="text">
-                    <text>Item Name : </text>
-                    <input type="text">
-                    <text>Item Quantity : </text>
-                    <input type="text">
-                    <text>Item Price : </text>
-                    <input type="text">
-                    <text>Total Price : </text>
-                    <div id="valueAdded"></div>
-                </form>
+                    <br>
+                    <div class="submitbtn" id="inventoryDisplay">
+                        FETCH DETAILS
+                    </div>
+                </div>
             </div>
         </div>
     </body>
