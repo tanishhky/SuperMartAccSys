@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
 
-body{
+body {
     font-family: "IBM Plex Mono", monospace;
     color: white;
 }
@@ -14,26 +14,28 @@ body {
     background-color: #000000;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover; 
+    background-size: cover;
 }
 
-#stanLogo{
+#stanLogo {
     width: 30%;
     display: flex;
 }
-#super,#mark{
+
+#super,
+#mark {
     align-content: center;
-    vertical-align:middle;
+    vertical-align: middle;
     font-family: "Sixtyfour", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
     font-variation-settings:
-      "BLED" 0,
-      "SCAN" 0;
+        "BLED" 0,
+        "SCAN" 0;
 }
 
-.heading{
+.heading {
     text-align: center;
     background-color: rgb(0, 0, 0);
     display: flex;
@@ -43,25 +45,26 @@ body {
     display: flex;
 }
 
-.comLogo{
+.comLogo {
     width: 100%;
 }
 
-#logout{
+#logout {
     background-color: red;
 }
+
 h1 {
     text-align: center;
     margin-top: 50px;
     width: auto;
 }
 
-img{
+img {
     z-index: 20;
     /* width: 50%; */
 }
 
-#homemodule{
+#homemodule {
     z-index: 10;
     margin: 5%;
     border-radius: 25px;
@@ -82,26 +85,28 @@ img{
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#pfpImg{
-    height: 50vh;
+#pfpImg {
+    /* height: 35vh; */
 }
-#pfp{
+
+#pfp {
     margin: 0% 5% 0 0;
 }
 
-img{
+img {
     border-radius: 15px;
 }
 
-#loginbody{
+#loginbody {
     display: flex;
-    padding: 0% 5% ;
+    padding: 0% 5%;
     /* height:72vh; */
     /* background-color: #000000; */
     /* opacity: 60%; */
 }
+
 /* INDEX.html */
-#loginArea{
+#loginArea {
     width: 40%;
     margin: 5%;
     background-color: #000000;
@@ -110,7 +115,8 @@ img{
     border-radius: 10px;
     height: min-content;
 }
-#instructions{
+
+#instructions {
     width: 60%;
     /* height: 100px; */
     margin: 5%;
@@ -118,18 +124,19 @@ img{
     opacity: 70%;
     padding: 20px;
     border-radius: 10px;
-    overflow-y:auto;
+    overflow-y: auto;
 }
+
 /* User.html */
 
-formDiv{
+formDiv {
     background-color: black;
 }
 
 label {
     display: block;
     margin-bottom: 10px;
-    font-size:larger;
+    font-size: larger;
 }
 
 input[type="text"],
@@ -142,14 +149,16 @@ button {
     border-radius: 5px;
 }
 
-#role{
+#role {
     width: 100%;
     padding: 10px;
     margin: 0px 0px 10px;
 }
 
-#profileDets{
+#profileDets {
     width: 100%;
+    font-size: 30px;
+    height: fit-content;
 }
 
 .submit {
@@ -174,24 +183,59 @@ nav {
     display: flex;
 }
 
-.clickable {
-    flex: 1; /* Distribute equal space among items */
-    text-align: center; /* Center align text */
-    padding: 20px 0; /* Adjust vertical padding */
-    cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition effect */
+#profHead {
+    display: flex;
+    justify-content: space-between;
 }
 
-#empName{
+#empName {
     font-size: 40px;
 }
 
+#designation {
+    font-size: 30px;
+    padding-top: 10px;
+    text-align: end;
+    font-style: italic;
+}
+
+#empDetsTable {
+    width: 100%;
+    height:auto;
+    text-align: left;
+}
+
+#empDetsTable th,
+#empDetsTable td {
+    /* border: 1px solid #dddddd; */
+    /* Add border to cells */
+    /* padding: 8px; */
+    /* Add padding to cells */
+    text-align: left;
+    /* Align text to the left */
+    vertical-align: middle;
+    /* Align text vertically to middle */
+}
+
+
+.clickable {
+    flex: 1;
+    /* Distribute equal space among items */
+    text-align: center;
+    /* Center align text */
+    padding: 20px 0;
+    /* Adjust vertical padding */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    /* Smooth transition effect */
+}
+
 .clickable:hover {
-    background-color: rgb(255, 255, 255); 
+    background-color: rgb(255, 255, 255);
     color: black;
 }
 
-.submitbtn{
+.submitbtn {
     background-color: rgb(255, 0, 0);
     padding: 10px;
     text-align: center;
@@ -199,35 +243,33 @@ nav {
     color: white;
 }
 
-legend{
+legend {
     color: white;
-    font-size:larger;
+    font-size: larger;
     text-align: center;
     display: block;
 }
 
-text{
+text {
     color: white;
 }
 
-ol>li{
+ol>li {
     font-weight: bold;
 }
 
-ul>li{
+ul>li {
     font-weight: lighter;
 }
 
-.validationMessage{
+.validationMessage {
     color: red;
     font-size: small;
 }
 
-.active{
+.active {
     background-color: white;
     color: black;
 }
 
-.activeView{
-
-}
+.activeView {}

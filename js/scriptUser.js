@@ -14,6 +14,15 @@ window.onload = function() {
     hideInactiveDivs();
 };
 
+window.addEventListener('DOMContentLoaded', function() {
+    var scrollableDiv = document.getElementById("pfpImg");
+    var contentDiv = document.getElementById("profileDets");
+    console.log("took obj");
+    // Set the height of the scrollable div to match the height of the content div
+    scrollableDiv.style.height = contentDiv.offsetHeight - 52 + "px";
+    console.log("hieght set",scrollableDiv.style.height,contentDiv.offsetHeight);
+});
+
 function hideInactiveDivs() {
     var inactiveDivs = document.getElementsByClassName('inactiveView');
 
