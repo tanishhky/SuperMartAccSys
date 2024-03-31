@@ -29,7 +29,7 @@
             <h1>Login</h1>
             <hr>
             <br>
-            <form id="login-form">
+            <div id="login-form">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" onchange="validateUsername()"><br>
                 <div class="validationMessage" id="usernameInvalid"></div>
@@ -48,8 +48,8 @@
                 <div class="validationMessage" id="roleInvalid"></div>
                 <br>
                 <br>
-                <button type="submit" id="logincredsub" onclick="validateLoginCreds()">Login</button>
-            </form>
+                <div class="submit" id="logincredsub" onclick="validateLoginCreds()">Login</div>
+            </div>
         </div>
         <div id="instructions">
             <h1>

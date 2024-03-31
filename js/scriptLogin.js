@@ -58,10 +58,11 @@ function validateRole(){
         return false;
     }
 }
-
-function validateLoginCreds(){
-    if(validateUsername()&&validatePassword()&&validateRole()){
-        document.getElementById("logincredsub").innerText="Validating User...";
+function validateLoginCreds() {
+    if (validateUsername() && validatePassword() && validateRole()) {
+        document.getElementById("logincredsub").innerText = "Validating User...";
+        localStorage.setItem("userType", "SM");
+        window.location.href = "user.html";
     }
 }
 
