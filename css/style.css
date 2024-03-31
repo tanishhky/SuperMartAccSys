@@ -122,14 +122,14 @@ button {
 }
 
 button {
-    background-color: #007bff;
+    background-color: #ff0000;
     color: #fff;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #cc4b00;
 }
 
 nav {
@@ -176,4 +176,9 @@ ol>li{
 
 ul>li{
     font-weight: lighter;
+}
+
+.validationMessage{
+    color: red;
+    font-size: small;
 }
