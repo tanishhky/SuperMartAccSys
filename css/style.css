@@ -67,7 +67,7 @@ h1 {
 #loginbody{
     display: flex;
     padding: 0% 5% ;
-    height:72vh;
+    /* height:72vh; */
     /* background-color: #000000; */
     /* opacity: 60%; */
 }
@@ -79,7 +79,7 @@ h1 {
     opacity: 90%;
     padding: 20px;
     border-radius: 10px;
-    /* height: min-content; */
+    height: min-content;
 }
 #instructions{
     width: 60%;
@@ -89,7 +89,7 @@ h1 {
     opacity: 70%;
     padding: 20px;
     border-radius: 10px;
-    overflow-y: auto;
+    overflow-y:auto;
 }
 /* User.html */
 
