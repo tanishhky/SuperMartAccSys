@@ -41,7 +41,7 @@
             </div>
         </nav>
         <br>
-        <div class="activeView" id="HomeView">
+        <div class="inactiveView" id="HomeView">
             <div class="genMods" id="homemodule">
                 <div id="pfp">
                     <img src="Assets/img/pfp.jpg" alt="" id="pfpImg">
@@ -92,6 +92,40 @@
                         </table>
                     </div>
                 </div>                
+            </div>
+        </div>
+        <div class="inactiveView" id="addUserView">
+            <div class="genMods" id="addusermodule">
+                <div class="form">
+                    <legend>ADD USER</legend>
+                    <hr>
+                    <br>
+                    <text>NAME : </text>
+                    <input type="text">
+                    <br>
+                    <br>
+                    <text>ASSIGN ROLE : </text>
+                    <select name="AddRole" id="addRole">
+                        <option value="">--SELECT ROLE--</option>
+                        <option value="accountant">ACCOUNTANT</option>
+                        <option value="cashier">CASHIER</option>
+                    </select>
+                    <br><br>
+                    <text>EMPLOYEE GENDER :</text>
+                    <input type="radio" value= "male" name="newUserGender" id="gendernewuser">MALE
+                    <input type="radio" valu="female" name="newUserGender" id="gendernewuser">FEMALE
+                    <br><br>
+                    <text>PHONE NUMBER : </text>
+                    <br>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit phone number" required>
+                    <br><br>
+                    <text>E-Mail : </text>
+                    <input type="email" name="newUserEmail" id="" placeholder="xxxxx@supermark.com">
+                    <br><br>
+                    <div id="addInventoryItems" class="submitbtn">
+                        ADD USER
+                    </div>
+                </div>
             </div>
         </div>
         <div class="inactiveView" id="addItemView">
@@ -145,7 +179,6 @@
                     <div class="submitbtn" id="purchaseConfirm" onclick="addToCart()">
                         ADD TO CART
                     </div>
-                    
                 </div>
             </div>
         </div>
