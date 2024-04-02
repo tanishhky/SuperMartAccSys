@@ -7,12 +7,14 @@
     <body background="Assets/img/bg.jpeg">
         <div class="heading">
             <img id="stanLogo" src="Assets/img/Stanford University Logo.png" alt="">
-            <div id="super">
-                Super
-            </div>
-            <div id="mark">
-                Mark
-            </div>
+            <a href="index.html" id="supermarkHREF">
+                <div id="super">
+                    Super
+                </div>
+                <div id="mark">
+                    Mark
+                </div>
+            </a>
         </div>
         <nav id="navbar">
             <div class="clickable active" id="Home" onclick="setActive(event, 'HomeView')">
@@ -36,7 +38,7 @@
             <div class="clickable" id="SeeInventory" onclick="setActive(event,'seeInventoryView')">
                 SEE INVENTORY
             </div>
-            <div class="clickable" id="logout" onclick="setActive(event,'logout')">
+            <div class="clickable" id="logout" onclick="logoutandclearstorage()">
                 LOGOUT
             </div>
         </nav>

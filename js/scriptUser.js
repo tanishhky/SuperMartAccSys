@@ -44,7 +44,6 @@ function SMView(){
 
 function removeAddItem(){
     document.getElementById("AddItem").style.display='none';
-    document.getElementById("additemmodule").style.display='none';
 }
 
 function removeAddSale(){
@@ -57,28 +56,19 @@ function removeAddRefund(){
 }
 
 function setActive(event, view) {
-    console.log(view);
     var clickedID = event.target.id; // Get the ID of the clicked element
     document.getElementsByClassName('active')[0].classList.remove('active'); // Get all elements with 'activeView' class
     document.getElementsByClassName('activeView')[0].classList.add('inactiveView');
     document.getElementsByClassName('activeView')[0].classList.remove('activeView');
 
-    // Loop through all elements with 'activeView' class and remove the class
-    // for (var i = 0; i < elementsNav.length; i++) {
-    //     elementsNav[0].classList.remove('active');
-    // }
-
-    // for (var i = 0; i < elementsBody.length; i++) {
-    //     console.log(i);
-    //     elementsBody[i].classList.remove('activeView');
-    //     elementsBody[i].classList.add('inactiveView'); // Add the 'inactiveView' class
-    // }
-
-    // Add 'activeView' class to the clicked element
     document.getElementById(clickedID).classList.add('active');
     document.getElementById(view).classList.remove('inactiveView'); // Remove the 'inactiveView' class
     document.getElementById(view).classList.add('activeView');
     hideAndUnhide();
 }
 
-
+function logoutandclearstorage(){
+    localStorage.clear();
+    sessionStorage.clear()
+    window.location.href = "index.html";
+}
