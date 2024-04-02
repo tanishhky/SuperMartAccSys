@@ -15,33 +15,33 @@
             </div>
         </div>
         <nav id="navbar">
-            <div class="clickable active" id="Home">
+            <div class="clickable active" id="Home" onclick="setActive(event, 'HomeView')">
                 HOME
             </div>
-            <div class="clickable" id="AddItem">
+            <div class="clickable" id="AddItem" onclick="setActive(event, 'addItemView')">
                 ADD ITEM
             </div>
-            <div class="clickable" id="AddUser">
+            <div class="clickable" id="AddUser" onclick="setActive(event,'addUserView')">
                 ADD USER
             </div>
-            <div class="clickable" id="AddSale" onclick="addTransaction('sale')">
+            <div class="clickable" id="AddSale" onclick="setActive(event,'addSaleView')">
                 ADD SALE
             </div>
-            <div class="clickable" id="AddRefund" onclick="addTransaction('refund')">
+            <div class="clickable" id="AddRefund" onclick="setActive(event,'addRefundView')">
                 ADD REFUND
             </div>
-            <div class="clickable" id="FinancialReport" onclick="generateFinancialReport()">
+            <div class="clickable" id="FinancialReport" onclick="setActive(event,'financialreportview')">
                 FINANCIAL REPORT
             </div>
-            <div class="clickable" id="SeeInventory" onclick="fetchInventoryDetails()">
+            <div class="clickable" id="SeeInventory" onclick="setActive(event,'seeInventoryView')">
                 SEE INVENTORY
             </div>
-            <div class="clickable" id="logout" onclick="fetchInventoryDetails()">
+            <div class="clickable" id="logout" onclick="setActive(event,'logout')">
                 LOGOUT
             </div>
         </nav>
         <br>
-        <div class="inactiveView" id="HomeView">
+        <div class="activeView xxx" id="HomeView">
             <div class="genMods" id="homemodule">
                 <div id="pfp">
                     <img src="Assets/img/pfp.jpg" alt="" id="pfpImg">
@@ -94,7 +94,7 @@
                 </div>                
             </div>
         </div>
-        <div class="inactiveView" id="addUserView">
+        <div class="inactiveView xxx" id="addUserView" onclick="setActive(event)">
             <div class="genMods" id="addusermodule">
                 <div class="form">
                     <legend>ADD USER</legend>
@@ -128,7 +128,7 @@
                 </div>
             </div>
         </div>
-        <div class="inactiveView" id="addItemView">
+        <div class="inactiveView xxx" id="addItemView" onclick="setActive(event)">
             <div class="genMods" id="additemmodule">
                 <div class="form">
                     <legend>ADD ITEMS</legend>
@@ -157,7 +157,7 @@
             </div>
         </div>
         <br>
-        <div class="inactiveView">
+        <div class="inactiveView xxx" id="addSaleView" onclick="setActive(event)">
             <div class="genMods" id="addsalemodule">
                 <div class="form">
                     <legend>ADD SALE</legend>
@@ -183,7 +183,7 @@
             </div>
         </div>
         <br>
-        <div class="inactiveView">
+        <div class="inactiveView xxx" id="addRefundView" onclick="setActive(event)">
             <div class="genMods" id="addrefundmodule">
                 <div class="form">
                     <legend>ADD REFUND</legend>
@@ -208,7 +208,7 @@
             </div>
         </div>
         <br>
-        <div class="inactiveView">
+        <div class="inactiveView xxx" id="financialreportview" onclick="setActive(event)">
             <div class="genMods" id="financialreportmodule">
                 <div class="form">
                     <legend>GENERATE FINANCIAL REPORT</legend>
@@ -232,7 +232,7 @@
             </div>
         </div>
         <br>
-        <div class="inactiveView">
+        <div class="inactiveView xxx" id="seeInventoryView" onclick="setActive(event)">
             <div class="genMods" id="seeinventorymodule">
                 <div class="form">
                     <legend>INVENTORY STATUS</legend>

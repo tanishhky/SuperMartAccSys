@@ -11,7 +11,7 @@ window.onload = function() {
     } else if(userType=="C"){
         Cview();
     }
-    hideInactiveDivs();
+    hideAndUnhide();
 };
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -23,11 +23,15 @@ window.addEventListener('DOMContentLoaded', function() {
     console.log("hieght set",scrollableDiv.style.height,contentDiv.offsetHeight);
 });
 
-function hideInactiveDivs() {
+function hideAndUnhide() {
     var inactiveDivs = document.getElementsByClassName('inactiveView');
+    var activeDivs=document.getElementsByClassName('activeView');
 
     for (var i = 0; i < inactiveDivs.length; i++) {
         inactiveDivs[i].style.display = 'none';
+    }
+    for (let i = 0; i < activeDivs.length; i++) {
+        activeDivs[i].style.display=''
     }
 }
 
@@ -51,3 +55,30 @@ function removeAddSale(){
 function removeAddRefund(){
     document.getElementById("AddRefund").style.display='none';
 }
+
+function setActive(event, view) {
+    console.log(view);
+    var clickedID = event.target.id; // Get the ID of the clicked element
+    document.getElementsByClassName('active')[0].classList.remove('active'); // Get all elements with 'activeView' class
+    document.getElementsByClassName('activeView')[0].classList.add('inactiveView');
+    document.getElementsByClassName('activeView')[0].classList.remove('activeView');
+
+    // Loop through all elements with 'activeView' class and remove the class
+    // for (var i = 0; i < elementsNav.length; i++) {
+    //     elementsNav[0].classList.remove('active');
+    // }
+
+    // for (var i = 0; i < elementsBody.length; i++) {
+    //     console.log(i);
+    //     elementsBody[i].classList.remove('activeView');
+    //     elementsBody[i].classList.add('inactiveView'); // Add the 'inactiveView' class
+    // }
+
+    // Add 'activeView' class to the clicked element
+    document.getElementById(clickedID).classList.add('active');
+    document.getElementById(view).classList.remove('inactiveView'); // Remove the 'inactiveView' class
+    document.getElementById(view).classList.add('activeView');
+    hideAndUnhide();
+}
+
+
