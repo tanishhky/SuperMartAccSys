@@ -42,6 +42,17 @@ function SMView(){
     removeAddRefund();
 }
 
+function CView(){
+    removeAddUser();
+    removeFinancialReport();
+    removeInventory();
+}
+function AView(){
+    removeAddItem();
+    removeAddSale();
+    removeAddRefund();
+}
+
 function removeAddItem(){
     document.getElementById("AddItem").style.display='none';
 }
@@ -53,6 +64,18 @@ function removeAddSale(){
 
 function removeAddRefund(){
     document.getElementById("AddRefund").style.display='none';
+}
+
+function removeAddUser(){
+    document.getElementById("AddUser").style.display='none';
+}
+
+function removeFinancialReport(){
+    document.getElementById("FinancialReport").style.display='none';
+}
+
+function removeInventory(){
+    document.getElementById('SeeInventory').style.display='none';
 }
 
 function setActive(event, view) {
