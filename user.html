@@ -20,11 +20,11 @@
             <div class="clickable active" id="Home" onclick="setActive(event, 'HomeView')">
                 HOME
             </div>
-            <div class="clickable" id="AddItem" onclick="setActive(event, 'addItemView')">
-                ADD ITEM
-            </div>
             <div class="clickable" id="AddUser" onclick="setActive(event,'addUserView')">
                 ADD USER
+            </div>
+            <div class="clickable" id="AddItem" onclick="setActive(event, 'addItemView')">
+                ADD ITEM
             </div>
             <div class="clickable" id="AddSale" onclick="setActive(event,'addSaleView')">
                 ADD SALE
@@ -96,14 +96,15 @@
                 </div>                
             </div>
         </div>
-        <div class="inactiveView xxx" id="addUserView" onclick="setActive(event)">
+        <div class="inactiveView xxx" id="addUserView">
             <div class="genMods" id="addusermodule">
                 <div class="form">
                     <legend>ADD USER</legend>
                     <hr>
                     <br>
                     <text>NAME : </text>
-                    <input type="text">
+                    <input type="text" id="newUserFullName" onchange="validateName()">
+                    <div id="nameInvalid" class="validationMessage"></div>
                     <br>
                     <br>
                     <text>ASSIGN ROLE : </text>
@@ -112,25 +113,27 @@
                         <option value="accountant">ACCOUNTANT</option>
                         <option value="cashier">CASHIER</option>
                     </select>
+                    <div id="roleInvalid"></div>
                     <br><br>
                     <text>EMPLOYEE GENDER :</text>
-                    <input type="radio" value= "male" name="newUserGender" id="gendernewuser">MALE
-                    <input type="radio" valu="female" name="newUserGender" id="gendernewuser">FEMALE
+                    <input type="radio" value= "male" name="newUserGender" id="gendernewusermale">MALE
+                    <input type="radio" value="female" name="newUserGender" id="gendernewuserfemale">FEMALE
                     <br><br>
                     <text>PHONE NUMBER : </text>
                     <br>
                     <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit phone number" required>
                     <br><br>
                     <text>E-Mail : </text>
-                    <input type="email" name="newUserEmail" id="" placeholder="xxxxx@supermark.com">
+                    <input type="email" name="newUserEmail" id="newUserEmail" placeholder="xxxxx@supermark.com" onchange="validateEmail()">
+                    <div id="emailInvalid" class="validationMessage"></div>
                     <br><br>
-                    <div id="addInventoryItems" class="submitbtn">
+                    <div id="addInventoryItems" class="submitbtn" onclick="">
                         ADD USER
                     </div>
                 </div>
             </div>
         </div>
-        <div class="inactiveView xxx" id="addItemView" onclick="setActive(event)">
+        <div class="inactiveView xxx" id="addItemView">
             <div class="genMods" id="additemmodule">
                 <div class="form">
                     <legend>ADD ITEMS</legend>
@@ -159,7 +162,7 @@
             </div>
         </div>
         <br>
-        <div class="inactiveView xxx" id="addSaleView" onclick="setActive(event)">
+        <div class="inactiveView xxx" id="addSaleView">
             <div class="genMods" id="addsalemodule">
                 <div class="form">
                     <legend>ADD SALE</legend>
@@ -185,7 +188,7 @@
             </div>
         </div>
         <br>
-        <div class="inactiveView xxx" id="addRefundView" onclick="setActive(event)">
+        <div class="inactiveView xxx" id="addRefundView">
             <div class="genMods" id="addrefundmodule">
                 <div class="form">
                     <legend>ADD REFUND</legend>
@@ -210,7 +213,7 @@
             </div>
         </div>
         <br>
-        <div class="inactiveView xxx" id="financialreportview" onclick="setActive(event)">
+        <div class="inactiveView xxx" id="financialreportview" >
             <div class="genMods" id="financialreportmodule">
                 <div class="form">
                     <legend>GENERATE FINANCIAL REPORT</legend>
@@ -234,7 +237,7 @@
             </div>
         </div>
         <br>
-        <div class="inactiveView xxx" id="seeInventoryView" onclick="setActive(event)">
+        <div class="inactiveView xxx" id="seeInventoryView">
             <div class="genMods" id="seeinventorymodule">
                 <div class="form">
                     <legend>INVENTORY STATUS</legend>

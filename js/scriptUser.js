@@ -95,3 +95,65 @@ function logoutandclearstorage(){
     sessionStorage.clear()
     window.location.href = "index.html";
 }
+
+function validateEmail() {
+    var emailInput = document.getElementById("newUserEmail");
+    var validationMessage = document.getElementById("emailInvalid");
+    var email = emailInput.value;
+
+    if (isValidEmail(email)) {
+        console.log('valid');
+        validationMessage.innerText = "";
+        return true;
+    } else {
+        console.log('invalid');
+        validationMessage.innerText = "Invalid email address";
+        return false;
+    }
+}
+
+function isValidEmail(email) {
+    return /^[a-zA-Z0-9_]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function validatenewuserrole(){
+    var role=document.getElementById('addRole').value;
+    var validationMessage = document.getElementById("roleInvalid");
+    if(role!=''){
+        validationMessage.innerText="";
+    } else{
+        validationMessage.innerHTML="Please select the role to be assigned";
+    }
+
+}
+
+function isValidName(name) {
+    if (name.length > 0 && name.length <= 50) {
+        return /^[a-zA-Z\s'-]+$/.test(name);
+    } else {
+        return false; // Return false if the name is empty or exceeds 50 characters
+    }
+}
+
+function validateName() {
+    var nameInput = document.getElementById("newUserFullName");
+    var validationMessage = document.getElementById("nameInvalid");
+
+    if (isValidName(nameInput.value)) {
+        validationMessage.innerText = "";
+        return true;
+    } else {
+        validationMessage.innerText = "Invalid Name";
+        return false;
+    }
+}
+
+// function validateGender(){
+//     if
+// }
+
+function validateNewUserEntry(){
+    if(validateName()&&validatenewuserrole()&&validateGender()&&validatePhoneNumber()&&validateEmail()){
+
+    }
+}
