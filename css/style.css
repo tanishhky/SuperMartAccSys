@@ -288,3 +288,14 @@ a#supermarkHREF {
     cursor: pointer; /* Optionally change cursor to pointer */
     display: flex;
 }
+
+/* #addedItems{
+    display: flex;
+    background-color: white;
+    width: 30%;
+}
+
+#additemmodule{
+    display: flex;
+    width: 30%;
+} */

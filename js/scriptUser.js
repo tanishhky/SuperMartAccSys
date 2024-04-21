@@ -7,9 +7,9 @@ window.onload = function() {
     if (userType=="SM") {
         SMView();
     } else if(userType=="A"){
-        Aview();
+        AView();
     } else if(userType=="C"){
-        Cview();
+        CView();
     }
     hideAndUnhide();
 };
@@ -49,6 +49,7 @@ function CView(){
 }
 function AView(){
     removeAddItem();
+    removeAddUser();
     removeAddSale();
     removeAddRefund();
 }
