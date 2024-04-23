@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="Assets/img/favicon.ico" type="image/x-icon">
+        <title>SuperMark Accounts</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body background="Assets/img/bg.jpeg">
+        <div class="heading">
+            <img id="stanLogo" src="Assets/img/Stanford University Logo.png" alt="">
+            <a href="index.html" id="supermarkHREF">
+                <div id="super">
+                    Super
+                </div>
+                <div id="mark">
+                    Mark
+                </div>
+            </a>
+        </div>
+        <nav id="navbar">
+            <div class="clickable active" id="Home" onclick="setActive(event, 'HomeView')">
+                HOME
+            </div>
+            <div class="clickable" id="AddUser" onclick="setActive(event,'addUserView')">
+                ADD USER
+            </div>
+            <div class="clickable" id="AddItem" onclick="setActive(event, 'addItemView')">
+                ADD ITEM
+            </div>
+            <div class="clickable" id="AddSale" onclick="setActive(event,'addSaleView')">
+                ADD SALE
+            </div>
+            <div class="clickable" id="AddRefund" onclick="setActive(event,'addRefundView')">
+                ADD REFUND
+            </div>
+            <div class="clickable" id="FinancialReport" onclick="setActive(event,'financialreportview')">
+                FINANCIAL REPORT
+            </div>
+            <div class="clickable" id="SeeInventory" onclick="setActive(event,'seeInventoryView')">
+                SEE INVENTORY
+            </div>
+            <div class="clickable" id="logout" onclick="logoutandclearstorage()">
+                LOGOUT
+            </div>
+        </nav>
+        <br>
+        <div class="activeView xxx" id="HomeView">
+            <div class="genMods" id="homemodule">
+                <div id="pfp">
+                    <img src="Assets/img/pfp.jpg" alt="" id="pfpImg">
+                </div>
+                <div id="profileDets">
+                    <div id="profHead">
+                        <text id="empName">Employee Name</text>
+                        <text id="designation">Designation</text>
+                    </div>
+                    <hr>
+                    <div id="profDets">
+                        <table id="empDetsTable">
+                            <tr>
+                                <th>EMPLOYEE ID</th>
+                                <td>:</td>
+                                <td>001</td>
+                            </tr>
+                            <tr>
+                                <th>DATE JOINED</th>
+                                <td>:</td>
+                                <td>DD-MM-YYYY</td>
+                            </tr>
+                            <tr>
+                                <th>AGE</th>
+                                <td>:</td>
+                                <td>XX Years</td>
+                            </tr>
+                            <tr>
+                                <th>GENDER</th>
+                                <td>:</td>
+                                <td>Male/Female/Others</td>
+                            </tr>
+                            <tr>
+                                <th>BRANCH</th>
+                                <td>:</td>
+                                <td>Branch Name</td>
+                            </tr>
+                            <tr>
+                                <th>CONTACT NUMBER</th>
+                                <td>:</td>
+                                <td>XXXXX-XXXXX</td>
+                            </tr>
+                            <tr>
+                                <th>EMAIL</th>
+                                <td>:</td>
+                                <td>xxxxx@supermark.com</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="inactiveView xxx" id="addUserView">
+            <div class="genMods" id="addusermodule">
+                <div class="form">
+                    <legend>ADD USER</legend>
+                    <hr>
+                    <br>
+
+                    <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <span style="margin-top:-10px;">NAME: </span>
+                    <input type="text" id="newUserFullName" onchange="validateName()">
+                    <div id="nameInvalid" class="validationMessage"></div>
+                </div>
+                    <br>
+                    <br>
+                    <text>ASSIGN ROLE : </text>
+                    <select name="AddRole" id="addRole">
+                        <option value="">--SELECT ROLE--</option>
+                        <option value="accountant">ACCOUNTANT</option>
+                        <option value="cashier">CASHIER</option>
+                    </select>
+                    <div id="roleInvalid"></div>
+                    <br><br>
+                    <text>EMPLOYEE GENDER :</text>
+                    <input type="radio" value= "male" name="newUserGender" id="gendernewusermale">MALE
+                    <input type="radio" value="female" name="newUserGender" id="gendernewuserfemale">FEMALE
+                    <br><br>
+                    <text>PHONE NUMBER : </text>
+                    <br>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit phone number" required>
+                    <br><br>
+                    <text>E-Mail : </text>
+                    <input type="email" name="newUserEmail" id="newUserEmail" placeholder="xxxxx@supermark.com" onchange="validateEmail()">
+                    <div id="emailInvalid" class="validationMessage"></div>
+                    <br><br>
+                    <div id="addInventoryItems" class="submitbtn" onclick="">
+                        ADD USER
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="inactiveView xxx" id="addItemView">
+            <div class="genMods" id="additemmodule">
+                <div class="form">
+                    <legend>ADD ITEMS</legend>
+                    <hr>
+                    <br>
+                    <text>Item ID : </text>
+                    <input type="text">
+                    <br>
+                    <br>
+                    <text>Item Name : </text>
+                    <input type="text">
+                    <br><br>
+                    <text>Item Quantity : </text>
+                    <input type="text">
+                    <br><br>
+                    <text>Item Price : </text>
+                    <input type="text">
+                    <br><br>
+                    <text>Total Price : </text>
+                    <div id="valueAdded"></div>
+                    <br><br>
+                    <div id="addInventoryItems" class="submitbtn">
+                        ADD ITEMS
+                    </div>
+                </div>
+            </div>
+            <div class="genMods" id="addedItems">
+                <center>SuperMark Pvt. Ltd.</center>
+            </div>
+        </div>
+        <br>
+        <div class="inactiveView xxx" id="addSaleView">
+            <div class="genMods" id="addsalemodule">
+                <div class="form">
+                    <legend>ADD SALE</legend>
+                    <hr>
+                    <br>
+                    <text>Item ID : </text>
+                    <input type="text">
+                    <br>
+                    <br>
+                    <text>Item Name : </text>
+                    <div id="itemNameSale"></div>
+                    <br><br>
+                    <text>Item Quantity : </text>
+                    <input type="text">
+                    <br><br>
+                    <text>Total Price : </text>
+                    <div id="valueAdded"></div>
+                    <br><br>
+                    <div class="submitbtn" id="purchaseConfirm" onclick="addToCart()">
+                        ADD TO CART
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="inactiveView xxx" id="addRefundView">
+            <div class="genMods" id="addrefundmodule">
+                <div class="form">
+                    <legend>ADD REFUND</legend>
+                    <hr>
+                    <br>
+                    <text>BILL ID : </text>
+                    <input type="text">
+                    <br><br>
+                    <text>Item ID : </text>
+                    <input type="text">
+                    <br><br>
+                    <text>Refund Item Quantity : </text>
+                    <input type="text">
+                    <br><br>
+                    <text>Total Refund Amount : </text>
+                    <div id="valueRefunded"></div>
+                    <br>
+                    <div class="submitbtn" id="refundConfirm" onclick="refundIssue()">
+                        ISSUE REFUND
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="inactiveView xxx" id="financialreportview" >
+            <div class="genMods" id="financialreportmodule">
+                <div class="form">
+                    <legend>GENERATE FINANCIAL REPORT</legend>
+                    <hr>
+                    <br>
+                    <text>Starting Date : </text>
+                    <input type="date" id="finStartDate">
+                    <br>
+                    <br>
+                    <text>Ending Date : </text>
+                    <input type="date" id="finEndDate">
+                    <br>
+                    <br>
+                    <br>
+                    <div class="submitbtn" id="generatereportbtn" onclick="fetchFinancialReport()">
+                        GENERATE REPORT
+                    </div>
+                    <div id="displayReport">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="inactiveView xxx" id="seeInventoryView">
+            <div class="genMods" id="seeinventorymodule">
+                <div class="form">
+                    <legend>INVENTORY STATUS</legend>
+                    <hr>
+                    <br>
+                    <div class="submitbtn" id="inventoryDisplay">
+                        FETCH DETAILS
+                    </div>
+                </div>
+            </div>
+        <!-- </div> -->
+        <script src="js/scriptUser.js"></script>
+    </body>
+</html>
