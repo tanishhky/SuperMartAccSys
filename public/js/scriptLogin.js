@@ -1,4 +1,7 @@
+const { doc } = require("firebase/firestore");
+
 window.addEventListener("DOMContentLoaded", function () {
+    this.localStorage.clear();
 	var scrollableDiv = document.getElementById("instructions");
 	var contentDiv = document.getElementById("loginArea");
 	scrollableDiv.style.height = contentDiv.offsetHeight - 40 + "px";
@@ -22,6 +25,90 @@ function isValidPassword(password) {
 		/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
 	return passwordRegex.test(password);
+}
+function isValidEmail(email) {
+    // Basic email validation using a regular expression
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function isValidPhoneNumber(phone) {
+    // Basic phone number validation: 10 digits
+    var phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+}
+
+
+function isValidName(name) {
+    if (!name || name.trim() === '') {
+        return false;
+    }
+    if (!/^[a-zA-Z]+$/.test(name)) {
+        return false;
+    }
+    if (name.length > 50) {
+        return false;
+    }
+
+    return true;
+}
+
+function validateName(){
+    var name=document.getElementById('newUserFullName');
+    if(isValidName(name.value)){
+        return true;
+    }
+    else{
+        document.getElementById('nameInvalid').innerText="ENTER VALID NAME";
+        return false;
+    }
+}
+function validateRole(){
+    let roleInput=document.getElementById('addRole').value;
+    let roleInputValidationMsg=document.getElementById('roleInvalid')
+    if(roleInput==''){
+        roleInputValidationMsg.innerText="SELECT A ROLE";
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function validateGender(){
+    let genInputM=document.getElementById('gendernewusermale');
+    let genInputF=document.getElementById('gendernewuserfemale');
+    let genInputError=document.getElementById('genderInvalid');
+
+    if (!genInputM.checked && !genInputF.checked) {
+        genInputError.innerText="PLEASE SELECT A GENDER";
+        return false;
+    }
+    else if (genInputF.checked) {
+        return gender;
+    }
+}
+
+function validatePhoneNumber(){
+    let validationMsg=document.getElementById('phoneInvalid')
+    if(isValidPhoneNumber(document.getElementById('phoneNumber').value)){
+        return true;
+    }
+    else{
+        validationMsg.innerText="PLEASE WRITE A VALID PHONE NUMBER";
+        return false;
+    }
+}
+
+function validateEmail(){
+    var validationMsg=document.getElementById('emailInvalid');
+    if(isValidEmail(document.getElementById('newUserEmail').value)){
+        return true;
+    }
+    else{
+        validationMsg.innerText="PLEASE ENTER VALID EMAIL";
+        return false;
+    }
 }
 
 function validateUsername() {
@@ -50,17 +137,7 @@ function validatePassword() {
 	}
 }
 
-// function validateRole() {
-// 	var roleSelect = document.getElementById("role");
-// 	var validationMessage = document.getElementById("roleInvalid");
-// 	if (roleSelect != "") {
-// 		validationMessage.innerText = "";
-// 		return true;
-// 	} else {
-// 		validationMessage.innerText = "Kindly select your role.";
-// 		return false;
-// 	}
-// }
+
 async function validateLoginCreds() {
 	if (validateUsername() && validatePassword()) {
 		document.getElementById("logincredsub").innerText = "Validating User...";
@@ -72,12 +149,10 @@ async function validateLoginCreds() {
             alert("Incorrect USERNAME or PASSWORD");
             return;
         }
-		localStorage.setItem("currentUserDetails", details);
+		localStorage.setItem("currentUserDetails", JSON.stringify(details));
 		window.location.href = "user.html";
 	}
 }
-
-// validateLogin()
 
 const fetchDetails = async (username, password) => {
     console.log("fetching",username,password);
