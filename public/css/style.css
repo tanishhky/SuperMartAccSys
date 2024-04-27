@@ -82,9 +82,6 @@ h1 {
     opacity: 80%;
 }
 
-#pfpImg {
-    /* height: 35vh; */
-}
 
 #pfp {
     margin: 0% 5% 0 0;
@@ -144,6 +141,7 @@ input[type="date"]{
 
 input[type="text"],
 input[type="password"],
+input[type="number"],
 button {
     width: 100%;
     padding: 10px;
@@ -275,11 +273,6 @@ ul>li {
     color: black;
 }
 
-
-
-.activeView {
-
-}
 
 input[type="text"],input[type="tel"],input[type="email"], select{
     margin-bottom: 10px;

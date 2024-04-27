@@ -1,6 +1,10 @@
+// const { doc } = require("firebase/firestore");
+
 const today = new Date().toISOString().split('T')[0];
 document.getElementById("finEndDate").setAttribute("max", today);
 document.getElementById("dobNewUser").setAttribute("max", today);
+document.getElementById("finEndDate").setAttribute("max", today);
+document.getElementById("finStartDate").setAttribute("max", today);
 
 window.onload = function() {
     var userDetsString=localStorage.getItem('currentUserDetails');
@@ -165,7 +169,6 @@ function updateUserDetails(userDets){
     document.getElementById("empBranch").innerText=userDets.branch;
     document.getElementById("empPhone").innerText=userDets.phone;
     document.getElementById("empemail").innerText=userDets.email;
-    // document.getElementById("empName").innerText=userDets.name;
 }
 
 function convertDateFormat(dateString) {
@@ -322,3 +325,129 @@ const addNewUserDetails = async (name,gender,dob,email,phoneNum,branch,role,date
     const res = await response.json()
     document.getElementById('addUsers').innerText="USER ADDED SUCCESSFULLY";
 };
+
+//Creating generate Financial Report
+
+function formatDateForPostgres(date) {
+    const months = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const days = [
+        "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+    ];
+
+    const year = date.getFullYear();
+    const month = months[date.getMonth()];
+    const dayOfMonth = date.getDate().toString().padStart(2, '0');
+    const dayOfWeek = days[date.getDay()];
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    const timezoneOffset = date.getTimezoneOffset();
+    const timezoneOffsetHours = Math.abs(Math.floor(timezoneOffset / 60)).toString().padStart(2, '0');
+    const timezoneOffsetMinutes = Math.abs(timezoneOffset % 60).toString().padStart(2, '0');
+    const timezone = timezoneOffset >= 0 ? '-' : '+';
+
+    return `${dayOfWeek} ${month} ${dayOfMonth} ${year} ${hours}:${minutes}:${seconds} GMT${timezone}${timezoneOffsetHours}${timezoneOffsetMinutes} (${Intl.DateTimeFormat().resolvedOptions().timeZone})`;
+}
+
+async function fetchFinancialReport(){
+    const startDate=document.getElementById('finStartDate').value;
+    const endDate=document.getElementById('finEndDate').value;
+    if(startDate==''){
+        document.getElementById('errorStart').innerText="ENTER START DATE";
+        return;
+    }
+    if(endDate==''){
+        document.getElementById('errorEnd').innerText="ENTER END DATE";
+        return;
+    }
+    document.getElementById('generatereportbtn').innerText='FETCHING DETAILS'
+    const detailsUploadStatus = await addNewUserDetails(formatDateForPostgres(startDate),formatDateForPostgres(endDate));
+}
+
+const getFinancesFromDB = async (startDate,endDate) => {
+	const response = await fetch("http://localhost:3000/api/finstats", {
+		method: "GET",
+		headers: {
+			startDate : startDate, 
+            endDate : endDate
+		},
+	});
+    const data = await response.json();
+    console.log(res);
+    if (data.length==0){
+        document.getElementById('generatereportbtn').innerText="NO DATA FOR THE DATE RANGE";
+        return 0;
+    }else{
+        document.getElementById('generatereportbtn').innerText="REPORT GENERATED SUCCESSFULLY";
+        return data;
+    }
+};
+
+// Creating Add Item
+function addItemQuantity(){
+    const quantity=document.getElementById('addItemQuantity').value;
+    const totalPrice=document.getElementById('valueAdded');
+    const errormsg=document.getElementById('errormsg');
+    if(quantity>0){
+        const totPrice=document.getElementById('addItemPrice').value*quantity;
+        totalPrice.innerText=totPrice;
+        return totPrice;
+    }
+    else{
+        errormsg.innerText="QUANTITY CAN NOT BE LESS THAN 1";
+        return false;
+    }
+}
+
+async function addItemToDB(){
+    const itemID = document.getElementById('addItemID').value;
+    const itemQuantity = document.getElementById('addItemQuantity').value;
+    const itemPrice = document.getElementById('addItemPrice').value;
+    const itemName = document.getElementById('addItemName').value;
+
+    console.log(itemID,itemQuantity,itemName,itemPrice);
+    document.getElementById('addInventoryItems').innerText="UPLOADING...";
+    const detailsUploadStatus = await putItemsToDB(itemID,itemQuantity,itemName,itemPrice);
+}
+
+const putItemsToDB = async(itemID,itemQuantity,itemName,itemPrice)=>{
+    const response = await fetch("http://localhost:3000/api/addItem", {
+		method: "POST",
+		headers: {
+            product_id: itemID,
+            product_name:itemName,
+            product_price:itemPrice,
+            product_quantity:itemQuantity
+		},
+	});
+    const res = await response.json()
+    document.getElementById('addInventoryItems').innerText="ITEM ADDED SUCCESSFULLY";
+}
+
+
+// Creting SEE INVENTORY
+async function fetchData() {
+    try {
+      const response = await fetch("http://localhost:3000/api/inventory");
+      const data = await response.json();
+      const tableBody = document.getElementById("inventoryData");
+
+      data.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.product_id}</td>
+          <td>${item.product_name}</td>
+          <td>${item.product_description}</td>
+          <td>${item.product_price}</td>
+          <td>${item.product_quantity}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }

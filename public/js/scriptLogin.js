@@ -1,4 +1,4 @@
-const { doc } = require("firebase/firestore");
+// const { doc } = require("firebase/firestore");
 
 window.addEventListener("DOMContentLoaded", function () {
     this.localStorage.clear();
@@ -20,12 +20,12 @@ function isValidUsername(username) {
 
 	return alphanumericRegex.test(username);
 }
-function isValidPassword(password) {
-	const passwordRegex =
-		/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+// function isValidPassword(password) {
+// 	const passwordRegex =
+// 		/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
-	return passwordRegex.test(password);
-}
+// 	return passwordRegex.test(password);
+// }
 function isValidEmail(email) {
     // Basic email validation using a regular expression
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -128,7 +128,7 @@ function validatePassword() {
 	var passwordInput = document.getElementById("password");
 	var validationMessage = document.getElementById("passwordInvalid");
 
-	if (isValidPassword(passwordInput.value)) {
+	if ((passwordInput.value)!='') {
 		validationMessage.innerText = "";
 		return true;
 	} else {

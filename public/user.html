@@ -183,29 +183,36 @@
                 <legend>ADD ITEMS</legend>
                 <hr>
                 <br>
-                <text>Item ID : </text>
-                <input type="text">
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <span style="margin-top:-10px; width:fit-content">Item ID : </span>
+                    <input type="text" id="addItemID">
+                </div>
                 <br>
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <span style="margin-top:-10px; width:fit-content">Item Name : </span>
+                    <input type="text" id="addItemName">
+                </div>
                 <br>
-                <text>Item Name : </text>
-                <input type="text">
-                <br><br>
-                <text>Item Quantity : </text>
-                <input type="text">
-                <br><br>
-                <text>Item Price : </text>
-                <input type="text">
-                <br><br>
-                <text>Total Price : </text>
-                <div id="valueAdded"></div>
-                <br><br>
-                <div id="addInventoryItems" class="submitbtn">
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <span style="margin-top:-10px; width:fit-content">Item Quantity: </span>
+                    <input type="number" id="addItemQuantity" onchange="addItemQuantity()">
+                </div>
+                <div id="errormsg"></div>
+                <br>
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <span style="margin-top:-10px; width:fit-content">Item Price : </span>
+                    <input type="number" id="addItemPrice" onchange="addItemQuantity()">
+                </div>
+                <br>
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <span style="margin-top:-10px; width:fit-content">Total Price : Rs. </span>
+                    <div style="margin-top:-10px; width:fit-content" id="valueAdded"></div>
+                </div>
+                <br>
+                <div id="addInventoryItems" class="submitbtn" onclick="addItemToDB()">
                     ADD ITEMS
                 </div>
             </div>
-        </div>
-        <div class="genMods" id="addedItems">
-            <center>SuperMark Pvt. Ltd.</center>
         </div>
     </div>
     <br>
@@ -266,13 +273,17 @@
                 <legend>GENERATE FINANCIAL REPORT</legend>
                 <hr>
                 <br>
-                <text>Starting Date : </text>
-                <input type="date" id="finStartDate">
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <span style="margin-top:-10px;">Starting Date : </span>
+                    <input type="date" id="finStartDate">
+                </div>
+                <div id="errorStart"></div>
                 <br>
-                <br>
-                <text>Ending Date : </text>
-                <input type="date" id="finEndDate">
-                <br>
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <span style="margin-top:-10px;">Ending Date : </span>
+                    <input type="date" id="finEndDate">
+                </div>
+                <div id="errorEnd"></div>
                 <br>
                 <br>
                 <div class="submitbtn" id="generatereportbtn" onclick="fetchFinancialReport()">
@@ -293,6 +304,21 @@
                 <div class="submitbtn" id="inventoryDisplay">
                     FETCH DETAILS
                 </div>
+            </div>
+            <div class="inventory">
+                <table id="inventoryTable">
+                    <thead>
+                      <tr>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody id="inventoryData">
+                    </tbody>
+                  </table>
             </div>
         </div>
         <!-- </div> -->

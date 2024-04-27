@@ -1,6 +1,6 @@
 const express = require("express");
 const { Pool } = require("pg");
-const cors = require('cors')
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -59,7 +59,7 @@ app.get("/api/user/login", async (req, res) => {
 		const { rows } = await pool.query(query);
 		res.json(rows);
 	} catch (error) {
-		console.error("Error executing query:", error);s
+		console.error("Error executing query:", error);
 		res.status(500).json({ error: "Error executing query" });
 	}
 });
@@ -117,6 +117,60 @@ app.post("/api/sm/adduser", async (req, res) => {
 		res.status(500).json({ error: "Error adding the member" });
 	}
 });
+
+app.get("/api/finstats", async (req, res) => {
+	try {
+		console.log("in");
+		const { startDate, endDate } = req.headers;
+		const query = {
+			text: "SELECT * FROM users WHERE username = $1 AND password = $2",
+			values: [startDate, endDate],
+		};
+		const { rows } = await pool.query(query);
+		res.json(rows);
+	} catch (error) {
+		console.error("Error executing query:", error);
+		res.status(500).json({ error: "Error executing query" });
+	}
+});
+
+app.post("/api/addItem", async (req, res) => {
+    try {
+        console.log("in");
+        const { product_id, product_name, product_price, product_quantity } = req.headers; 
+        console.log(product_id, product_name, product_price, product_quantity);
+
+        // Check if product_id exists in the inventory table
+        const checkQuery = {
+            text: `SELECT * FROM inventory WHERE product_id = $1`,
+            values: [product_id],
+        };
+
+        const { rows } = await pool.query(checkQuery);
+
+        if (rows.length > 0) {
+            // Product already exists, update quantity
+            const updateQuery = {
+                text: `UPDATE inventory SET product_quantity = product_quantity + $1 WHERE product_id = $2`,
+                values: [product_quantity, product_id],
+            };
+            await pool.query(updateQuery);
+            res.json({ message: "Quantity updated successfully" });
+        } else {
+            // Product doesn't exist, insert new row
+            const insertQuery = {
+                text: `INSERT INTO inventory (product_id, product_name, product_price, product_quantity) VALUES ($1, $2, $3, $4)`,
+                values: [product_id, product_name, product_price, product_quantity],
+            };
+            await pool.query(insertQuery);
+            res.json({ message: "Item added successfully" });
+        }
+    } catch (error) {
+        console.error("Error adding item:", error);
+        res.status(500).json({ error: "Error adding item" });
+    }
+});
+
 
 app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);
