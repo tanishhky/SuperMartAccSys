@@ -8,7 +8,7 @@ document.getElementById("finStartDate").setAttribute("max", today);
 
 window.onload = function() {
     var userDetsString=localStorage.getItem('currentUserDetails');
-    console.log(JSON.parse(userDetsString));
+    console.log(userDetsString);
     var userDets=JSON.parse(userDetsString);
     console.log(userDets);
     // Check if "xyz" exists in local storage

@@ -10,9 +10,7 @@ window.addEventListener("DOMContentLoaded", function () {
     var usernameF=this.document.getElementById("username");
     var passwordF=this.document.getElementById("password");
 
-    console.log(usernameF.style.width,passwordF.style.width,submitBtn.style.width);
     usernameF.style.width=passwordF.style.width=submitBtn.style.width;
-    console.log(usernameF.style.width,passwordF.style.width,submitBtn.style.width);
 });
 
 function isValidUsername(username) {
@@ -145,13 +143,13 @@ async function validateLoginCreds() {
         const password=document.getElementById("password").value;
         console.log(username,password);
         const currentUserDetailsJSON=await fetchDetails(username,password);
-        // console.log("h",details);
+        console.log("h",currentUserDetailsJSON[0]);
         if(currentUserDetailsJSON==0){
             alert("Incorrect USERNAME or PASSWORD");
             // return;
         }
-		localStorage.setItem("currentUserDetails", currentUserDetailsJSON);
-        if(currentUserDetailsJSON.role=="Store Manager" || currentUserDetailsJSON.role=="Accountant" || currentUserDetailsJSON.role=="Cashier"){
+		localStorage.setItem("currentUserDetails", JSON.stringify(currentUserDetailsJSON));
+        if(currentUserDetailsJSON[0].role=="Store Manager" || currentUserDetailsJSON[0].role=="Accountant" || currentUserDetailsJSON[0].role=="Cashier"){
             window.location.href = "user.html";
         }
         else{
