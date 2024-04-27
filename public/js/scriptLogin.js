@@ -144,13 +144,19 @@ async function validateLoginCreds() {
         const username=document.getElementById("username").value;
         const password=document.getElementById("password").value;
         console.log(username,password);
-        const details=await fetchDetails(username,password);
-        if(details==0){
+        const currentUserDetailsJSON=await fetchDetails(username,password);
+        // console.log("h",details);
+        if(currentUserDetailsJSON==0){
             alert("Incorrect USERNAME or PASSWORD");
-            return;
+            // return;
         }
-		localStorage.setItem("currentUserDetails", JSON.stringify(details));
-		window.location.href = "user.html";
+		localStorage.setItem("currentUserDetails", currentUserDetailsJSON);
+        if(currentUserDetailsJSON.role=="Store Manager" || currentUserDetailsJSON.role=="Accountant" || currentUserDetailsJSON.role=="Cashier"){
+            window.location.href = "user.html";
+        }
+        else{
+            document.getElementById('logincredsub').innerText="Login"
+        }
 	}
 }
 
