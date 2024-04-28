@@ -171,6 +171,39 @@ app.post("/api/addItem", async (req, res) => {
     }
 });
 
+app.get("/api/fetch/item", async (req, res) => {
+	try {
+		console.log("in for item check");
+		const { product_id } = req.headers;
+		const query = {
+			text: "SELECT * FROM inventory WHERE product_id = $1",
+			values: [product_id],
+		};
+		const { rows } = await pool.query(query);
+		res.json(rows);
+	} catch (error) {
+		console.error("Error executing query:", error);
+		res.status(500).json({ error: "Error executing query" });
+	}
+});
+
+app.post("/api/addSale", async (req, res) => {
+	try {
+		console.log("in sales");
+		const sale_type="S";
+		const { product_id, num_items_sold,sale_date, sale_amount } = req.headers;
+		const query = {
+			text: "INSERT INTO sales (product_id, num_items_sold,sale_date, sale_amount, sale_type) VALUES ($1, $2, $3, $4, $5)",
+			values: [product_id, num_items_sold,sale_date, sale_amount, sale_type],
+		};
+		const { rows } = await pool.query(query);
+		res.json(rows);
+	} catch (error) {
+		console.error("Error executing query:", error);
+		res.status(500).json({ error: "Error executing query" });
+	}
+});
+
 
 app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);

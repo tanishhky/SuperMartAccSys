@@ -114,7 +114,7 @@
 
                 <br>
                 <br>
-                
+
                 <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
                     <span style="margin-top:-10px;">ASSIGN ROLE : </span>
                     <select name="AddRole" id="addRole">
@@ -127,7 +127,7 @@
                 </div>
 
                 <br><br>
-                
+
                 <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
                     <span style="margin-top:-10px;">ASSIGN BRANCH : </span>
                     <select name="AddBranch" id="newUserBranch">
@@ -140,7 +140,7 @@
                 </div>
 
                 <br><br>
-                
+
                 <text>EMPLOYEE GENDER :</text>
                 <input type="radio" value="male" name="newUserGender" id="gendernewusermale">MALE
                 <input type="radio" value="female" name="newUserGender" id="gendernewuserfemale">FEMALE
@@ -157,7 +157,8 @@
                 <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
                     <span style="margin-top:-10px;">PHONE NUMBER : </span>
                     <!-- <br><br> -->
-                    <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit phone number" required>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" maxlength="10"
+                        placeholder="10-digit phone number" required>
                     <div id="phoneInvalid"></div>
                 </div>
 
@@ -166,7 +167,8 @@
 
                 <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
                     <span style="margin-top:-10px; width:fit-content">E-Mail: </span>
-                    <input type="email" name="newUserEmail" id="newUserEmail" placeholder="xxxxx@supermark.com" onchange="validateEmail()">
+                    <input type="email" name="newUserEmail" id="newUserEmail" placeholder="xxxxx@supermark.com"
+                        onchange="validateEmail()">
                     <div id="emailInvalid" class="validationMessage"></div>
                 </div>
                 <br>
@@ -174,8 +176,8 @@
                 <div id="addUsers" class="submitbtn" onclick="addUserToDB()">
                     ADD USER
                 </div>
+            </div>
         </div>
-    </div>
     </div>
     <div class="inactiveView xxx" id="addItemView">
         <div class="genMods" id="additemmodule">
@@ -222,21 +224,58 @@
                 <legend>ADD SALE</legend>
                 <hr>
                 <br>
-                <text>Item ID : </text>
-                <input type="text">
-                <br>
-                <br>
-                <text>Item Name : </text>
-                <div id="itemNameSale"></div>
-                <br><br>
-                <text>Item Quantity : </text>
-                <input type="text">
-                <br><br>
-                <text>Total Price : </text>
-                <div id="valueAdded"></div>
-                <br><br>
-                <div class="submitbtn" id="purchaseConfirm" onclick="addToCart()">
-                    ADD TO CART
+
+                <form id="addSalesForm">
+                    <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                        <text>Item ID: </text>
+                        <input type="text" id="saleItemID" onchange="fetchItemFromDB()">
+                    </div>
+                    <br>
+                    <br>
+                    <div style="display: flex; width: 100%;  justify-content: left; align-items: center;">
+                        <text>Item Name: </text>
+                        <div id="itemNameSale"></div>
+                    </div>
+                    <br><br>
+                    <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                        <text>Quantity: </text>
+                        <input type="number" id="saleItemQuantity" onchange="updateTotalPrice()">
+                    </div>
+                    <br><br>
+                    <div style="display: flex; width: 100%;  justify-content: left; align-items: center;">
+                        <text>Total Price: Rs. </text>
+                        <div id="valueSold"></div>
+                    </div>
+                    <br><br>
+                    <div class="submitbtn" id="purchaseConfirm" onclick="addToCart();addRowInTable()">
+                        ADD TO CART
+                    </div>
+                </form>
+            </div>
+            <div id="cartHalf">
+                <div id="cart">
+                    <div id="cartCompName">
+                        <span id="comNameBill">SuperMark</span>
+                        <hr>
+                    </div>
+                    <div id="comAddress">
+                        <span>
+                            A project for Software Engineering by SRM University-AP
+                            <br>
+                            Tanishk | Sankar | Charishma | Poojitha
+                        </span>
+                    </div>
+                    <br>
+                    <div id="bill">
+                        <table id="billItems">
+                            <tr id="billTableHeading">
+                                <th>ITEM ID</th>
+                                <th>ITEM NAME</th>
+                                <th>ITEM QUANTITY</th>
+                                <th>PRICE</th>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -248,14 +287,18 @@
                 <legend>ADD REFUND</legend>
                 <hr>
                 <br>
-                <text>BILL ID : </text>
+                <!-- <text>BILL ID : </text>
                 <input type="text">
+                <br><br> -->
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <text>Item ID : </text>
+                    <input type="text">
+                </div>
                 <br><br>
-                <text>Item ID : </text>
-                <input type="text">
-                <br><br>
-                <text>Refund Item Quantity : </text>
-                <input type="text">
+                <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
+                    <text>Refund Item Quantity : </text>
+                    <input type="number">
+                </div>
                 <br><br>
                 <text>Total Refund Amount : </text>
                 <div id="valueRefunded"></div>
@@ -308,17 +351,17 @@
             <div class="inventory">
                 <table id="inventoryTable">
                     <thead>
-                      <tr>
-                        <th>Product ID</th>
-                        <th>Product Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                      </tr>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
                     </thead>
                     <tbody id="inventoryData">
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
         <!-- </div> -->

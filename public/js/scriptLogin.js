@@ -18,12 +18,7 @@ function isValidUsername(username) {
 
 	return alphanumericRegex.test(username);
 }
-// function isValidPassword(password) {
-// 	const passwordRegex =
-// 		/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
-// 	return passwordRegex.test(password);
-// }
 function isValidEmail(email) {
     // Basic email validation using a regular expression
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

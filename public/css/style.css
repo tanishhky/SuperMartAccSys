@@ -298,3 +298,48 @@ a#supermarkHREF {
     display: flex;
     width: 30%;
 } */
+
+#addsalemodule{
+    display: flex;
+    width: 100%;
+}
+
+#cartHalf{
+    width: 50%;
+}
+
+#cart{
+    margin: 0 10%;
+    padding: 20px;
+    background-color: white;
+    color: #000000;
+}
+
+#cartCompName{
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 24px;
+    width: 100%;
+    /* justify-content: space-around; */
+}
+
+#comAddress{
+    font-size: 10px;
+}
+#billItems{
+    width: 100%;
+    font-size: 12px;
+}
+#bill{
+    text-align: left;
+    font-size: 15 px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    /* justify-content: space-between; */
+}
+
+#billTableHeading{
+    border-top: 15px solid black;
+    border-bottom: 1px solid black;
+}
