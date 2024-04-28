@@ -564,7 +564,7 @@ async function addToCart() {
 	const sale_amount = document.getElementById("valueSold").innerText;
 
 	console.log(product_id, num_items_sold,sale_date, sale_amount);
-	document.getElementById("addInventoryItems").innerText = "CAPTURING SALE...";
+	document.getElementById("purchaseConfirm").innerText = "CAPTURING SALE...";
 	const detailsUploadStatus = await putItemsToSaleDB(
 		product_id,
 		num_items_sold,
@@ -583,10 +583,52 @@ const putItemsToSaleDB = async (product_id, num_items_sold,sale_date, sale_amoun
 		},
 	});
 	const res = await response.json();
-	document.getElementById("addInventoryItems").innerText =
-		"ITEM ADDED SUCCESSFULLY";
+	document.getElementById("purchaseConfirm").innerText =
+		"ITEM SOLD SUCCESSFULLY";
 };
 
+// Creating ADD REFUND
+var ipr;
+function updateRefundPrice(){
+    console.log(document.getElementById('refundQuant').value*ipr);
+    document.getElementById('valueRefunded').innerText=ipr*document.getElementById('refundQuant').value;
+}
+async function fetchItemFromDBforR() {
+	const itemID = document.getElementById("refundItemID").value;
+	const refundItem = await getItemFromDB(itemID);
+    console.log(refundItem[0].product_name);
+    document.getElementById('itemNameSale').innerText=refundItem[0].product_name;
+    ipr=refundItem[0].product_price; 
+}
+async function refundIssue() {
+	const product_id = document.getElementById("refundItemID").value;
+	const num_items_sold = document.getElementById("refundQuant").value;
+	const sale_date = convertToSQLTimestamp(new Date());
+	const sale_amount = document.getElementById("valueRefunded").innerText;
+
+	console.log(product_id, num_items_sold,sale_date, sale_amount);
+    document.getElementById("addInventoryItems").innerText = "CAPTURING REFUND...";
+	const detailsUploadStatus = await putItemsToRefundDB(
+		product_id,
+		num_items_sold,
+		sale_date,
+		sale_amount
+	);
+}
+const putItemsToRefundDB = async (product_id, num_items_sold,sale_date, sale_amount) => {
+	const response = await fetch("http://localhost:3000/api/addRefund", {
+		method: "POST",
+		headers: {
+			product_id: product_id,
+			num_items_sold: num_items_sold,
+			sale_date: sale_date,
+			sale_amount: sale_amount,
+		},
+	});
+	const res = await response.json();
+	document.getElementById("refundConfirm").innerText =
+		"REFUNDED SUCCESSFULLY";
+};
 
 // Creting SEE INVENTORY
 async function fetchData() {

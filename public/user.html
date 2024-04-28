@@ -292,12 +292,12 @@
                 <br><br> -->
                 <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
                     <text>Item ID : </text>
-                    <input type="text">
+                    <input type="text" id="refundItemID" onchange="fetchItemFromDBforR()">
                 </div>
                 <br><br>
                 <div style="display: flex; width: 100%;  justify-content: center; align-items: center;">
                     <text>Refund Item Quantity : </text>
-                    <input type="number">
+                    <input type="number" id="refundQuant" onchange="updateRefundPrice()">
                 </div>
                 <br><br>
                 <text>Total Refund Amount : </text>
