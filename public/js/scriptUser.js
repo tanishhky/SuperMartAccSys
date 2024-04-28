@@ -602,25 +602,26 @@ async function fetchItemFromDBforR() {
 }
 async function refundIssue() {
 	const product_id = document.getElementById("refundItemID").value;
-	const num_items_sold = document.getElementById("refundQuant").value;
+	const num_items_refunded = document.getElementById("refundQuant").value;
 	const sale_date = convertToSQLTimestamp(new Date());
 	const sale_amount = document.getElementById("valueRefunded").innerText;
 
-	console.log(product_id, num_items_sold,sale_date, sale_amount);
+	console.log(product_id, num_items_refunded,sale_date, sale_amount);
     document.getElementById("addInventoryItems").innerText = "CAPTURING REFUND...";
 	const detailsUploadStatus = await putItemsToRefundDB(
 		product_id,
-		num_items_sold,
+		num_items_refunded,
 		sale_date,
 		sale_amount
 	);
 }
-const putItemsToRefundDB = async (product_id, num_items_sold,sale_date, sale_amount) => {
+const putItemsToRefundDB = async (product_id, num_items_refunded,sale_date, sale_amount) => {
+    console.log(product_id, num_items_refunded,sale_date, sale_amount);
 	const response = await fetch("http://localhost:3000/api/addRefund", {
 		method: "POST",
 		headers: {
 			product_id: product_id,
-			num_items_sold: num_items_sold,
+			num_items_refunded: num_items_refunded,
 			sale_date: sale_date,
 			sale_amount: sale_amount,
 		},
@@ -632,23 +633,27 @@ const putItemsToRefundDB = async (product_id, num_items_sold,sale_date, sale_amo
 
 // Creting SEE INVENTORY
 async function fetchData() {
-	try {
-		const response = await fetch("http://localhost:3000/api/inventory");
-		const data = await response.json();
-		const tableBody = document.getElementById("inventoryData");
+    try {
+        const response = await fetch("http://localhost:3000/api/inventory");
+        const data = await response.json();
+        const tableBody = document.getElementById("inventoryData");
+        
+        // Clear previous items
+        console.log(data);
+        tableBody.innerHTML = "";
 
-		data.forEach((item) => {
-			const row = document.createElement("tr");
-			row.innerHTML = `
-          <td>${item.product_id}</td>
-          <td>${item.product_name}</td>
-          <td>${item.product_description}</td>
-          <td>${item.product_price}</td>
-          <td>${item.product_quantity}</td>
-        `;
-			tableBody.appendChild(row);
-		});
-	} catch (error) {
-		console.error("Error fetching data:", error);
-	}
+        data.forEach((item) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${item.product_id}</td>
+                <td>${item.product_name}</td>
+                <td>${item.product_price}</td>
+                <td>${item.product_quantity}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
 }
+

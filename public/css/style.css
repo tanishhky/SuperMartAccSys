@@ -343,3 +343,17 @@ a#supermarkHREF {
     border-top: 15px solid black;
     border-bottom: 1px solid black;
 }
+
+.inventory{
+    background-color: #000000;
+    color: aliceblue;
+    border-radius: 20px;
+    opacity: 85%;
+    padding: 5%;
+    margin: 5%;
+}
+#inventoryTable{
+    width: 100%;
+    text-align: left;
+    font-size: 24px;
+}

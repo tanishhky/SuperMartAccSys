@@ -135,40 +135,41 @@ app.get("/api/finstats", async (req, res) => {
 });
 
 app.post("/api/addItem", async (req, res) => {
-    try {
-        console.log("in");
-        const { product_id, product_name, product_price, product_quantity } = req.headers; 
-        console.log(product_id, product_name, product_price, product_quantity);
+	try {
+		console.log("in");
+		const { product_id, product_name, product_price, product_quantity } =
+			req.headers;
+		console.log(product_id, product_name, product_price, product_quantity);
 
-        // Check if product_id exists in the inventory table
-        const checkQuery = {
-            text: `SELECT * FROM inventory WHERE product_id = $1`,
-            values: [product_id],
-        };
+		// Check if product_id exists in the inventory table
+		const checkQuery = {
+			text: `SELECT * FROM inventory WHERE product_id = $1`,
+			values: [product_id],
+		};
 
-        const { rows } = await pool.query(checkQuery);
+		const { rows } = await pool.query(checkQuery);
 
-        if (rows.length > 0) {
-            // Product already exists, update quantity
-            const updateQuery = {
-                text: `UPDATE inventory SET product_quantity = product_quantity + $1 WHERE product_id = $2`,
-                values: [product_quantity, product_id],
-            };
-            await pool.query(updateQuery);
-            res.json({ message: "Quantity updated successfully" });
-        } else {
-            // Product doesn't exist, insert new row
-            const insertQuery = {
-                text: `INSERT INTO inventory (product_id, product_name, product_price, product_quantity) VALUES ($1, $2, $3, $4)`,
-                values: [product_id, product_name, product_price, product_quantity],
-            };
-            await pool.query(insertQuery);
-            res.json({ message: "Item added successfully" });
-        }
-    } catch (error) {
-        console.error("Error adding item:", error);
-        res.status(500).json({ error: "Error adding item" });
-    }
+		if (rows.length > 0) {
+			// Product already exists, update quantity
+			const updateQuery = {
+				text: `UPDATE inventory SET product_quantity = product_quantity + $1 WHERE product_id = $2`,
+				values: [product_quantity, product_id],
+			};
+			await pool.query(updateQuery);
+			res.json({ message: "Quantity updated successfully" });
+		} else {
+			// Product doesn't exist, insert new row
+			const insertQuery = {
+				text: `INSERT INTO inventory (product_id, product_name, product_price, product_quantity) VALUES ($1, $2, $3, $4)`,
+				values: [product_id, product_name, product_price, product_quantity],
+			};
+			await pool.query(insertQuery);
+			res.json({ message: "Item added successfully" });
+		}
+	} catch (error) {
+		console.error("Error adding item:", error);
+		res.status(500).json({ error: "Error adding item" });
+	}
 });
 
 app.get("/api/fetch/item", async (req, res) => {
@@ -188,38 +189,92 @@ app.get("/api/fetch/item", async (req, res) => {
 });
 
 app.post("/api/addSale", async (req, res) => {
+	const client = await pool.connect();
 	try {
-		console.log("in sales");
-		const sale_type="S";
-		const { product_id, num_items_sold,sale_date, sale_amount } = req.headers;
-		const query = {
-			text: "INSERT INTO sales (product_id, num_items_sold,sale_date, sale_amount, sale_type) VALUES ($1, $2, $3, $4, $5)",
-			values: [product_id, num_items_sold,sale_date, sale_amount, sale_type],
+		await client.query("BEGIN");
+
+		const sale_type = "S";
+		const { product_id, num_items_sold, sale_date, sale_amount } = req.headers;
+
+		// Insert sale into sales table
+		const saleQuery = {
+			text: "INSERT INTO sales (product_id, num_items_sold, sale_date, sale_amount, sale_type) VALUES ($1, $2, $3, $4, $5) RETURNING sale_id",
+			values: [product_id, num_items_sold, sale_date, sale_amount, sale_type],
 		};
-		const { rows } = await pool.query(query);
-		res.json(rows);
-	} catch (error) {
-		console.error("Error executing query:", error);
-		res.status(500).json({ error: "Error executing query" });
-	}
-});
-app.post("/api/addRefund", async (req, res) => {
-	try {
-		console.log("in refund");
-		const sale_type="R";
-		const { product_id, num_items_sold,sale_date, sale_amount } = req.headers;
-		const query = {
-			text: "INSERT INTO sales (product_id, num_items_sold,sale_date, sale_amount, sale_type) VALUES ($1, $2, $3, $4, $5)",
-			values: [product_id, num_items_sold,sale_date, sale_amount, sale_type],
+		const saleResult = await client.query(saleQuery);
+		const saleId = saleResult.rows[0].sale_id;
+
+		// Update inventory
+		const updateInventoryQuery = {
+			text: "UPDATE inventory SET product_quantity = product_quantity - $1 WHERE product_id = $2",
+			values: [num_items_sold, product_id],
 		};
-		const { rows } = await pool.query(query);
-		res.json(rows);
+		await client.query(updateInventoryQuery);
+
+		await client.query("COMMIT");
+
+		res.json({ sale_id: saleId });
 	} catch (error) {
-		console.error("Error executing query:", error);
-		res.status(500).json({ error: "Error executing query" });
+		await client.query("ROLLBACK");
+		console.error("Error executing transaction:", error);
+		res.status(500).json({ error: "Error executing transaction" });
+	} finally {
+		client.release();
 	}
 });
 
+app.post("/api/addRefund", async (req, res) => {
+	const client = await pool.connect();
+	try {
+		await client.query("BEGIN");
+
+		const sale_type = "R";
+		const { product_id, num_items_refunded, sale_date, sale_amount } =
+			req.headers;
+
+		console.log(product_id, num_items_refunded, sale_date, sale_amount);
+		// Insert refund into sales table
+		const refundQuery = {
+			text: "INSERT INTO sales (product_id, num_items_sold, sale_date, sale_amount, sale_type) VALUES ($1, $2, $3, $4, $5) RETURNING sale_id",
+			values: [product_id, num_items_refunded, sale_date, sale_amount, sale_type],
+		};
+		const refundResult = await client.query(refundQuery);
+		const saleId = refundResult.rows[0].sale_id;
+
+		// Update inventory
+		const updateInventoryQuery = {
+			text: "UPDATE inventory SET product_quantity = product_quantity + $1 WHERE product_id = $2",
+			values: [num_items_refunded, product_id],
+		};
+		await client.query(updateInventoryQuery);
+
+		await client.query("COMMIT");
+
+		res.json({ sale_id: saleId });
+	} catch (error) {
+		await client.query("ROLLBACK");
+		console.error("Error executing transaction:", error);
+		res.status(500).json({ error: "Error executing transaction" });
+	} finally {
+		client.release();
+	}
+});
+
+app.get("/api/inventory", async (req, res) => {
+	try {
+		console.log("in for inventory");
+		// const { product_id } = req.headers;
+		const query = {
+			text: "SELECT * FROM inventory",
+			// values: [product_id],
+		};
+		const { rows } = await pool.query(query);
+		res.json(rows);
+	} catch (error) {
+		console.error("Error executing query:", error);
+		res.status(500).json({ error: "Error executing query" });
+	}
+});
 
 app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);
