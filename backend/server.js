@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 3000;
+
 app.use(cors());
 
 // Create a new PostgreSQL connection pool
@@ -118,21 +119,6 @@ app.post("/api/sm/adduser", async (req, res) => {
 	}
 });
 
-app.get("/api/finstats", async (req, res) => {
-	try {
-		console.log("in");
-		const { startDate, endDate } = req.headers;
-		const query = {
-			text: "SELECT * FROM users WHERE username = $1 AND password = $2",
-			values: [startDate, endDate],
-		};
-		const { rows } = await pool.query(query);
-		res.json(rows);
-	} catch (error) {
-		console.error("Error executing query:", error);
-		res.status(500).json({ error: "Error executing query" });
-	}
-});
 
 app.post("/api/addItem", async (req, res) => {
 	try {
@@ -267,6 +253,24 @@ app.get("/api/inventory", async (req, res) => {
 		const query = {
 			text: "SELECT * FROM inventory",
 			// values: [product_id],
+		};
+		const { rows } = await pool.query(query);
+		res.json(rows);
+	} catch (error) {
+		console.error("Error executing query:", error);
+		res.status(500).json({ error: "Error executing query" });
+	}
+});
+
+app.listen(port, () => {
+	console.log(`Server is running on port ${port}`);
+});
+
+app.get("/api/finstats", async (req, res) => {
+	try {
+		console.log("in for finstats");
+		const query = {
+			text: "SELECT * FROM sales",
 		};
 		const { rows } = await pool.query(query);
 		res.json(rows);

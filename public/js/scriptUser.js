@@ -419,45 +419,6 @@ function formatDateForPostgres(date) {
 	})`;
 }
 
-async function fetchFinancialReport() {
-	const startDate = document.getElementById("finStartDate").value;
-	const endDate = document.getElementById("finEndDate").value;
-	if (startDate == "") {
-		document.getElementById("errorStart").innerText = "ENTER START DATE";
-		return;
-	}
-	if (endDate == "") {
-		document.getElementById("errorEnd").innerText = "ENTER END DATE";
-		return;
-	}
-	document.getElementById("generatereportbtn").innerText = "FETCHING DETAILS";
-	const detailsUploadStatus = await addNewUserDetails(
-		formatDateForPostgres(startDate),
-		formatDateForPostgres(endDate)
-	);
-}
-
-const getFinancesFromDB = async (startDate, endDate) => {
-	const response = await fetch("http://localhost:3000/api/finstats", {
-		method: "GET",
-		headers: {
-			startDate: startDate,
-			endDate: endDate,
-		},
-	});
-	const data = await response.json();
-	console.log(res);
-	if (data.length == 0) {
-		document.getElementById("generatereportbtn").innerText =
-			"NO DATA FOR THE DATE RANGE";
-		return 0;
-	} else {
-		document.getElementById("generatereportbtn").innerText =
-			"REPORT GENERATED SUCCESSFULLY";
-		return data;
-	}
-};
-
 // Creating Add Item
 function addItemQuantity() {
 	const quantity = document.getElementById("addItemQuantity").value;
@@ -657,3 +618,63 @@ async function fetchData() {
     }
 }
 
+//Creating FINANCIAL REPORT
+async function fetchSales() {
+    try {
+        const response = await fetch("http://localhost:3000/api/finstats");
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+
+async function generateSalesChart() {
+    const data = await fetchSales();
+    const productSales = {};
+
+    // Process sales data to calculate total sales and refunds per product
+    data.forEach((sale) => {
+        if (!productSales[sale.product_id]) {
+            productSales[sale.product_id] = { sold: 0, refunded: 0 };
+        }
+        if (sale.sale_type === 'S') {
+            productSales[sale.product_id].sold += sale.num_items_sold;
+        } else if (sale.sale_type === 'R') {
+            productSales[sale.product_id].refunded += sale.num_items_sold;
+        }
+    });
+
+    const productLabels = Object.keys(productSales);
+    const soldData = productLabels.map((productId) => productSales[productId].sold);
+    const refundedData = productLabels.map((productId) => productSales[productId].refunded);
+
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: productLabels,
+            datasets: [
+                {
+                    label: 'Sold',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    data: soldData,
+                },
+                {
+                    label: 'Refunded',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    data: refundedData,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                }],
+            },
+        },
+    });
+}

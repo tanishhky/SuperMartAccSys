@@ -5,6 +5,7 @@
     <link rel="shortcut icon" href="Assets/img/favicon.ico" type="image/x-icon">
     <title>SuperMark Accounts</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body background="Assets/img/bg.jpeg">
@@ -329,10 +330,13 @@
                 <div id="errorEnd"></div>
                 <br>
                 <br>
-                <div class="submitbtn" id="generatereportbtn" onclick="fetchFinancialReport()">
+                <div class="submitbtn" id="generatereportbtn" onclick="generateSalesChart();">
                     GENERATE REPORT
                 </div>
                 <div id="displayReport">
+                    <canvas id="salesChart" width="800" height="400">
+
+                    </canvas>
                 </div>
             </div>
         </div>
