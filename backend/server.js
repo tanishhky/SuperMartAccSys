@@ -10,7 +10,7 @@ app.use(cors());
 
 // Create a new PostgreSQL connection pool
 const pool = new Pool({
-	connectionString: process.env.DATABASE_URL,
+	connectionString: "postgres://default:P6dATomJipZ3@ep-fragrant-sea-68067357.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require",
 	ssl: {
 		rejectUnauthorized: false,
 	},

@@ -1,7 +1,3 @@
-// const { doc } = require("firebase/firestore");
-
-// const { update } = require("firebase/database");
-
 const today = new Date().toISOString().split("T")[0];
 document.getElementById("finEndDate").setAttribute("max", today);
 document.getElementById("dobNewUser").setAttribute("max", today);
@@ -9,8 +5,7 @@ document.getElementById("finEndDate").setAttribute("max", today);
 document.getElementById("finStartDate").setAttribute("max", today);
 
 window.onload = function () {
-	var userDetsString = localStorage.getItem("currentUserDetails");
-	console.log(userDetsString);
+	var userDetsString = localStorage.getItem("currentUserDetails");;
 	var userDets = JSON.parse(userDetsString);
 	console.log(userDets);
 	// Check if "xyz" exists in local storage
