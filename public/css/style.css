@@ -243,6 +243,9 @@ nav {
     border-radius: 5px;
     color: white;
 }
+.submitbtn:hover{
+    cursor: pointer;
+}
 
 legend {
     color: white;

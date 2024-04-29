@@ -1,6 +1,7 @@
 const express = require("express");
 const { Pool } = require("pg");
 const cors = require("cors");
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -9,8 +10,7 @@ app.use(cors());
 
 // Create a new PostgreSQL connection pool
 const pool = new Pool({
-	connectionString:
-		"postgres://default:P6dATomJipZ3@ep-fragrant-sea-68067357-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require",
+	connectionString: process.env.DATABASE_URL,
 	ssl: {
 		rejectUnauthorized: false,
 	},
@@ -260,10 +260,6 @@ app.get("/api/inventory", async (req, res) => {
 		console.error("Error executing query:", error);
 		res.status(500).json({ error: "Error executing query" });
 	}
-});
-
-app.listen(port, () => {
-	console.log(`Server is running on port ${port}`);
 });
 
 app.get("/api/finstats", async (req, res) => {
